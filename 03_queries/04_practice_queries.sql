@@ -67,3 +67,25 @@ GROUP BY product_id;
 SELECT category, AVG(price) AS average_price, COUNT(*) AS product_count
 FROM products 
 GROUP BY category;
+
+SELECT customer_id, COUNT(*) AS orders_count
+FROM orders 
+GROUP BY customer_id; 
+
+SELECT order_id, SUM(quantity) AS total_quantity,
+SUM(quantity * price) AS total_amount
+FROM order_items
+GROUP BY order_id;
+
+SELECT category, AVG(price) AS avg_price, 
+COUNT(*) AS product_amount
+FROM products 
+GROUP BY category;
+
+SELECT product_id, COUNT(DISTINCT order_id) AS orders_count,
+SUM(quantity) AS total_quantity, 
+SUM(quantity*price) AS total_revenue,
+AVG(price) AS avg_price
+FROM order_items
+GROUP BY product_id;
+
