@@ -89,3 +89,28 @@ AVG(price) AS avg_price
 FROM order_items
 GROUP BY product_id;
 
+SELECT MIN(price) AS cheapest_price
+FROM products;
+
+SELECT MAX(price) AS highest_price
+FROM products;
+
+SELECT product_id, MIN(price) AS cheapest_price,
+MAX(price) AS highest_price
+FROM order_items
+GROUP BY product_id;
+
+SELECT product_id, MIN(price) AS cheapest_price,
+MAX(price) AS highest_price,
+AVG(price) AS avg_price
+FROM order_items
+GROUP BY product_id;
+
+
+SELECT product_id, MIN(price) AS cheapest_price,
+MAX(price) AS highest_price,
+AVG(price) AS avg_price,
+COUNT(*) AS times_ordered
+FROM order_items
+GROUP BY product_id;
+
