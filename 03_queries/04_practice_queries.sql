@@ -1,3 +1,6 @@
+---1 მარტივი SELECT,WHERE, AGGREGATE ფუნქციები
+
+
 SELECT product_name, price 
 FROM products 
 ORDER BY price DESC;
@@ -249,3 +252,53 @@ AND SUM(quantity) > 200
 AND MAX(price) < 1000
 AND SUM(quantity * price) > 2000
 ORDER BY total_revenue DESC, total_quantity DESC;
+
+SELECT product_id, COUNT(DISTINCT order_id) AS order_count,
+SUM(quantity) AS total_quantity,
+AVG(price) AS avg_price,
+SUM(quantity * price)  AS total_revenue,
+MAX(price) AS highest_price
+FROM order_items
+GROUP BY product_id 
+HAVING COUNT(DISTINCT order_id) >=15 
+AND SUM(quantity) > 300 
+AND AVG(price) > 50
+AND MAX(price) >=120
+AND SUM(quantity * price) > 20000
+ORDER BY total_revenue DESC;
+
+SELECT product_id , SUM(quantity) AS total_quantity,
+COUNT(DISTINCT order_id) AS order_count,
+AVG(price) AS avg_price,
+MIN(price) AS cheapest_price,
+MAX(price) AS highest_price,
+SUM(quantity * price) AS total_revenue
+FROM order_items
+GROUP BY product_id
+HAVING SUM(quantity) >= 250
+AND COUNT(DISTINCT order_id) >= 20
+AND AVG(price) BETWEEN 40 AND 90
+AND MIN(price) > 15
+AND MAX(price) < 150
+AND SUM(quantity * price) > 50000
+ORDER BY total_quantity DESC, total_revenue DESC;
+
+
+SELECT product_id,
+       COUNT(DISTINCT order_id) AS orders_count,
+       SUM(quantity) AS total_quantity,
+       AVG(price) AS avg_price,
+       MIN(price) AS cheapest_price,
+       MAX(price) AS highest_price,
+       SUM(quantity * price) AS total_revenue
+FROM order_items
+GROUP BY product_id
+HAVING COUNT(DISTINCT order_id) >= 25
+   AND SUM(quantity) > 400
+   AND AVG(price) > 60
+   AND MIN(price) >= 20
+   AND MAX(price) <= 200
+   AND SUM(quantity * price) > 75000
+   AND MAX(price) >= AVG(price) * 2
+ORDER BY total_revenue DESC,
+         orders_count DESC;
