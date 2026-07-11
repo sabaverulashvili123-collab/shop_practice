@@ -210,3 +210,42 @@ WHERE price BETWEEN 50 AND 300
 GROUP BY product_id
 HAVING COUNT(*) >= 3  AND SUM(quantity) > 10
 ORDER BY total_revenue DESC, avg_price DESC;
+
+SELECT product_id, COUNT(DISTINCT order_id) AS orders_count
+SUM(quantity) AS total_quantity,
+SUM(quantity * price) AS total_revenue,
+AVG(price) AS avg_price,
+MAX(price) AS highest_price,
+MIN(price) AS cheapest_price
+FROM order_items
+GROUP BY product_id
+HAVING COUNT(*) > 5 
+AND SUM(quantity) > 100 
+AND SUM(quantity * price) > 10000
+ORDER BY total_revenue DESC;
+
+SELECT product_id, COUNT(*) AS orders_count,
+SUM(quantity) AS total_quantity,
+COUNT(DISTINCT price) AS different_prices,
+SUM(quantity * price) AS total_revenue, 
+AVG(price) AS avg_price,
+MIN(price) AS cheapest_price
+FROM order_items
+GROUP BY product_id
+HAVING AVG(price) > 200 
+AND  MIN(price) < 50 
+AND COUNT(DISTINCT price) >= 3
+ORDER BY avg_price DESC;
+
+SELECT product_id, COUNT(DISTINCT order_id) AS orders_count,
+SUM(quantity) AS total_quantity,
+SUM(quantity * price) AS total_revenue,
+AVG(price) AS average_price,
+MAX(price) AS highest_price
+FROM order_items
+GROUP BY product_id
+HAVING COUNT(DISTINCT order_id) > 10
+AND SUM(quantity) > 200
+AND MAX(price) < 1000
+AND SUM(quantity * price) > 2000
+ORDER BY total_revenue DESC, total_quantity DESC;
